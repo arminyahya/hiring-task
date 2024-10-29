@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { login } from '../_utils/services'
+import Cookies from 'js-cookie'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -16,10 +17,11 @@ export default function LoginPage() {
     setError('')
 
     const response = await login(email, password); 
-    if (response.ok) {
-      router.push('/dashboard')
+    if (response.status === 200) {
+      Cookies.set('token', response.data.token);
+      // router.push('/dashboard')
     } else {
-      const data = await response.json()
+      const data = await response.data;
       setError(data.message || 'Invalid username or password.')
     }
   }
