@@ -14,12 +14,12 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
+      setError('')
     const response = await register(username, password, email);
     if (response.status === 201) {
       navigate('/login')
     } else {
-      const data = await response.data;
+      const data = response.data;
       setError(data.message || 'An error occurred during registration.')
     }
   }

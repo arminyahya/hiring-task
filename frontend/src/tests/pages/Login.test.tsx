@@ -6,8 +6,8 @@ import Login from '../../pages/login'
 
 // Mock authentication function
 const mockLogin = vi.fn()
-vi.mock('../hooks/useAuth', () => ({
-  useAuth: () => ({ login: mockLogin })
+vi.mock('../../utils/services', () => ({
+  login: (email: string, password: string) => mockLogin(email, password) 
 }))
 
 describe('Login', () => {
@@ -15,10 +15,16 @@ describe('Login', () => {
     render(<MemoryRouter><Login /></MemoryRouter>)
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /log in/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Log in/i })).toBeInTheDocument()
   })
 
   it('submits form with user credentials', async () => {
+    mockLogin.mockReturnValue({
+      status: 200,
+      data: {
+       
+      }
+    });
     render(<MemoryRouter><Login /></MemoryRouter>)
     await userEvent.type(screen.getByLabelText(/email/i), 'test@example.com')
     await userEvent.type(screen.getByLabelText(/password/i), 'password123')
@@ -27,11 +33,16 @@ describe('Login', () => {
   })
 
   it('displays error message on login failure', async () => {
-    mockLogin.mockRejectedValueOnce(new Error('Invalid credentials'))
+    mockLogin.mockReturnValue({
+      status: 401,
+      data: {
+        message: "Invalid username or password"
+      }
+    });
     render(<MemoryRouter><Login /></MemoryRouter>)
     await userEvent.type(screen.getByLabelText(/email/i), 'test@example.com')
     await userEvent.type(screen.getByLabelText(/password/i), 'wrongpassword')
     await userEvent.click(screen.getByRole('button', { name: /log in/i }))
-    expect(await screen.findByText(/invalid credentials/i)).toBeInTheDocument()
+    expect(await screen.findByText(/Invalid username or password/i)).toBeInTheDocument()
   })
 })

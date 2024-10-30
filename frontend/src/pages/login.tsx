@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
-import { login } from '../utils/services'
 import Cookies from 'js-cookie'
+import { login } from '../utils/services'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 import { Button } from '../components/ui/Button'
@@ -24,7 +24,7 @@ export default function LoginPage() {
             setIsAuthenticated(true);
             navigate('/dashboard')
         } else {
-            const data = await response.data;
+            const data = response.data;
             setError(data.message || 'Invalid username or password.')
         }
     }
