@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from 'react'
-import { ethers, formatEther } from 'ethers'
+import { BrowserProvider } from 'ethers'
 import { Button } from '../ui/Button'
 import { Drawer, } from "../ui/Drawer"
 import { Power, Wallet } from 'lucide-react'
 import { AppContext } from '../../context/appContext'
+import { formatEther } from 'ethers'
 
 export default function MetaMaskConnector() {
   const [account, setAccount] = useState<string | null>(null)
@@ -11,14 +12,14 @@ export default function MetaMaskConnector() {
   const [isModalOpen, setModalOpen] = useState(false);
   const { isWalletConnected , setWalletConnect } = useContext(AppContext);
 
-  useEffect(() => {
-    checkConnection()
-  }, [])
+  // useEffect(() => {
+  //   checkConnection()
+  // }, [])
 
   async function checkConnection() {
     if (typeof window.ethereum !== 'undefined') {
       try {
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const provider = new BrowserProvider(window.ethereum);
         const accounts = await provider.listAccounts()
         if (accounts.length > 0) {
           setWalletConnect(true);
@@ -36,7 +37,7 @@ export default function MetaMaskConnector() {
     if (typeof window.ethereum !== 'undefined') {
       try {
         await window.ethereum.request({ method: 'eth_requestAccounts' })
-        const _provider = new ethers.BrowserProvider(window.ethereum);
+        const _provider = new BrowserProvider(window.ethereum);
         const accounts = await _provider.listAccounts()
         setWalletConnect(true);
         setAccount(accounts[0].address)
