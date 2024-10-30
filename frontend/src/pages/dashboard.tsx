@@ -44,7 +44,7 @@ export default function () {
                 <Input
                     type="text"
                     placeholder="Input here"
-                    className="w-full pr-20 rounded-[15px]"
+                    className="w-full pr-20 rounded-full"
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 <Button
