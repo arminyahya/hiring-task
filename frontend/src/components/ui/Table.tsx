@@ -24,7 +24,7 @@ function Table(props: Props) {
         <div className={"w-full h-full flex-1 overflow-x-auto bg-white " + className}>
             <div className='bg-white overflow-hidden h-[40px]'>
                 <table className="w-full h-full">
-                    <thead className="bg-gray-100">
+                    <thead className="bg-table-headerBackground text-headerText">
                         <tr className='flex w-full h-full'>
                             {columns.map((col, index) => (
                                 <th key={index} className="flex-1 py-2 px-4 border-b text-left font-medium">{col.title}</th>
@@ -36,7 +36,7 @@ function Table(props: Props) {
             </div>
             <div className={`overflow-y-auto`} style={{ height: height - 40, width }} ref={listRef}>
                 <table className="bg-white h-full w-full overflow-hidden">
-                    <tbody>
+                    <tbody className='text-row-text'>
                         {
                             data.map((d, index) => (
                                 <tr key={index} className='flex w-full'>
