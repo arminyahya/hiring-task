@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import MetaMaskConnector from '../feature/MetaMaskConnector'
 
 export default function Header() {

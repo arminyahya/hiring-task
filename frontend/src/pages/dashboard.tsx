@@ -1,6 +1,3 @@
-'use client';
-
-import MetaMaskConnector from "../components/feature/MetaMaskConnector";
 import Header from "../components/layout/Header";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
