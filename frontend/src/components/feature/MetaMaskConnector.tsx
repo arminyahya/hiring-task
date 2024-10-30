@@ -61,16 +61,16 @@ export default function MetaMaskConnector() {
         content={<>
           <div className='flex mb-5'>
             <div className='truncate w-16'>{account}</div>
-            <Power className='ml-auto' color='gray' onClick={disconnectWallet} />
+            <Power className='ml-auto' color='#DC3545' onClick={disconnectWallet} />
           </div>
           <div >{balance}</div>
         </>
         }
       >
         {!isConnected ? (
-          <Button onClick={connectWallet}>Connect Wallet</Button>
+          <Button variant='wallet' onClick={connectWallet}>Connect Wallet</Button>
         ) : <div className='flex items-center' onClick={() => setModalOpen(true)}>
-          <Wallet color='gray' className='inline-block mr-2'/>
+          <Wallet color='#28A745' className='inline-block mr-2'/>
           <span className='truncate w-16'>{account}</span></div>}
 
       </Drawer>

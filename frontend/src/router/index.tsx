@@ -9,7 +9,7 @@ const Dashboard = lazy(() => import('../pages/dashboard'));
 
 const router = createBrowserRouter([
   {
-    path: '/reister',
+    path: '/register',
     element: <Register />,
   },
   {

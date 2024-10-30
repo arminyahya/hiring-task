@@ -6,6 +6,7 @@ import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import Table from "../components/ui/Table";
 import { Title } from "../types/title";
+import formatDate from "../utils/formatDate";
 import { addTitle, getAllTitles } from "../utils/services";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -15,11 +16,12 @@ export default function () {
     const columns = useMemo(() => [
         {
             dataIndex: 'title',
-            title: 'title',
+            title: 'Title',
         },
         {
             dataIndex: 'createdAt',
-            title: 'createdAt',
+            title: 'Created Date',
+            renderer: ({item}: {item: Title}) => <span>{formatDate(item.createdAt)}</span>
         }
     ], []);
 
@@ -38,7 +40,7 @@ export default function () {
     return (
         <div>
             <Header />
-            <div className="relative flex-grow">
+            <div className="relative flex-grow mb-4">
                 <Input
                     type="text"
                     placeholder="Input here"
