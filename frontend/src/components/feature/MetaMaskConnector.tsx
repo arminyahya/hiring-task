@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { ethers, formatEther } from 'ethers'
 import { Button } from '../ui/Button'
 import { Drawer, } from "../ui/Drawer"
 import { Power, Wallet } from 'lucide-react'
+import { AppContext } from '../../context/appContext'
 
 export default function MetaMaskConnector() {
-  const [isConnected, setIsConnected] = useState(false)
   const [account, setAccount] = useState<string | null>(null)
   const [balance, setBalance] = useState<string | null>(null)
   const [isModalOpen, setModalOpen] = useState(false);
+  const { isWalletConnected , setWalletConnect } = useContext(AppContext);
 
   useEffect(() => {
     checkConnection()
@@ -20,7 +21,7 @@ export default function MetaMaskConnector() {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const accounts = await provider.listAccounts()
         if (accounts.length > 0) {
-          setIsConnected(true)
+          setWalletConnect(true);
           setAccount(accounts[0].address)
           const balance = await provider.getBalance("ethers.eth")
           setBalance(formatEther(balance))
@@ -37,7 +38,7 @@ export default function MetaMaskConnector() {
         await window.ethereum.request({ method: 'eth_requestAccounts' })
         const _provider = new ethers.BrowserProvider(window.ethereum);
         const accounts = await _provider.listAccounts()
-        setIsConnected(true)
+        setWalletConnect(true);
         setAccount(accounts[0].address)
         const balance = await _provider.getBalance("ethers.eth")
         setBalance(formatEther(balance))
@@ -50,7 +51,7 @@ export default function MetaMaskConnector() {
   }
 
   function disconnectWallet() {
-    setIsConnected(false);
+    setWalletConnect(false);
     setModalOpen(false);
   }
 
@@ -67,7 +68,7 @@ export default function MetaMaskConnector() {
         </>
         }
       >
-        {!isConnected ? (
+        {!isWalletConnected ? (
           <Button variant='wallet' onClick={connectWallet}>Connect Wallet</Button>
         ) : <div className='flex items-center' onClick={() => setModalOpen(true)}>
           <Wallet color='#28A745' className='inline-block mr-2'/>
