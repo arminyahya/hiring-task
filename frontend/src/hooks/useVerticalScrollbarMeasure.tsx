@@ -3,8 +3,7 @@ import getVerticalScrollbarWidth from '../utils/getVerticalScrollbarWidth';
 
 
 export default function useVerticalScrollbarMeasure({ listRef }: { listRef: React.RefObject<HTMLElement | null> }) {
-    const [scrolbarWidth, setScrollbarWidth] = useState(0);
-
+    const [scrolbarWidth, setScrollbarWidth] = useState(listRef ? getVerticalScrollbarWidth(listRef.current as HTMLElement) : null);
     useEffect(() => {
         if (!listRef.current) return;
 
@@ -17,7 +16,6 @@ export default function useVerticalScrollbarMeasure({ listRef }: { listRef: Reac
         });
 
         resizeObserver.observe(listRef.current as HTMLElement);
-
         return () => {
             if (listRef.current) {
                 resizeObserver.unobserve(listRef.current as HTMLElement);

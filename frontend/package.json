@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest Login"
+    "test": "vitest useVerticalScrollbarMeasure.test"
   },
   "dependencies": {
     "@types/js-cookie": "^3.0.6",

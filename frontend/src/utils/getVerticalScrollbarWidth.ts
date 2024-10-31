@@ -18,10 +18,8 @@ export default function getVerticalScrollbarWidth(element: HTMLElement): number 
 
     // Calculate the scrollbar width
     const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
-
     // Clean up the DOM
     outer.parentNode?.removeChild(outer);
-
     // If the element has a vertical scrollbar, return the scrollbar width
     if (element.scrollHeight > element.clientHeight) {
         return scrollbarWidth;
